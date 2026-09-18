@@ -1,20 +1,22 @@
-For the V1 smart inventory managemt the Data base mainly contains 3 Tables
+V1 Database — Column Purpose
 
-1) Products
-    product_id (Primary key and foreign key on Sales and Inventory table)
-    product_name (Name of each products)
-    product_category (Category of the product Ex: Electronics,House hold,Snacks and Beverages etc..)
-    unit_price (Price/Cost per unit)
-    reorder_level (minimum stock level)
-    lead_time_days (This will give estimated days for delivery of products)
+For V1, the database mainly contains 3 tables:
 
-2) Sales
-    sale_id (Primary key in sales table)
-    product_id (Primary key and foreign key on Products and Inventory table)
-    sale_date (sold date of each product with time stamp)
-    quantity_sold (Quantity of each product that has been sold)
-
-3) Inventory
-    product_id (Primary key and foreign key on Sales and Products table)
-    current_stock  (available stock as of now)
-
+1. Products
+Column	                Why we need it
+product_id (PK)	     -  Unique identifier for each product. Used to connect Products with Sales and Inventory.
+product_name	     -  Stores the name of the product.
+product_category	 -  Groups products into categories such as Electronics, Household, Snacks, etc. Useful for category-level analysis.
+unit_price	         -  Stores the selling price/cost of one unit. Useful for calculating sales value/revenue.
+reorder_level	     -  Defines the minimum stock level at which the product should be considered for reordering.
+lead_time_days	     -  Estimated number of days the supplier takes to deliver the product after ordering. Useful for reorder planning.
+2. Sales
+Column	                Why we need it
+sale_id (PK)	     -  Unique identifier for each sale transaction.
+product_id (FK)	     -  Identifies which product was sold. Can appear multiple times because the same product can be sold in many transactions.
+sale_date	         -  Records when the sale happened. A timestamp allows analysis by date/time.
+quantity_sold	     -  Records how many units were sold in that transaction.
+3. Inventory
+Column	                Why we need it
+product_id (PK, FK)	 -  Identifies the product whose current stock is being tracked. One inventory record per product in V1.
+current_stock	     -  Stores the number of units currently available. Used to determine whether stock needs replenishment.
