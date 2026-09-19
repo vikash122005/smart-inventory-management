@@ -19,4 +19,8 @@
         ✓ Record a sale
         ✓ Automatically decrease stock
         ✓ Low-stock status
-        
+
+✅ Day 1	Project setup + database design	1 day
+✅ Day 2	Sample good/bad datasets	1 day
+✅ Day 3	Learn Pandas + inspect data	1–2 days
+✅ Day 4	Data Validation                 1–2 days
