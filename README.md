@@ -24,3 +24,10 @@
 ✅ Day 2	Sample good/bad datasets	1 day
 ✅ Day 3	Learn Pandas + inspect data	1–2 days
 ✅ Day 4	Data Validation                 1–2 days
+✅ Day 5	Data Cleaning + Transformation                 1–2 days
+
+• Completely empty row → remove. 
+• Exact duplicate row → remove duplicate copies. 
+• Missing critical identifier (product_id) → reject/report. 
+• Invalid business value (negative price/lead time/reorder level) → reject/report for correction. 
+Never silently invent or alter the value unless you have a reliable rule for doing so.
