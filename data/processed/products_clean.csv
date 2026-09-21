@@ -1,0 +1,10 @@
+product_id,product_name,product_category,unit_price,reorder_level,lead_time_days
+P001,USB cable,Electronics,666.0,30,4
+P002,Headphones,Electronics,932.0,25,6
+P003,Mouse,Electronics,0.0,20,7
+P004,Rice 10Kg,Grocery,579.0,28,3
+P006,Wheat flour 500gm,Grocery,38.0,40,2
+P007,Bucket combo,Household,486.0,20,4
+P008,Home Cleaner,Household,520.0,15,3
+P009,3Broom stick,Household,850.0,10,0
+P013,Wheat flour 500gm,Grocery,38.0,40,2
