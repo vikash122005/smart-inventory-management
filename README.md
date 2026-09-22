@@ -22,9 +22,10 @@
 
 ✅ Day 1	Project setup + database design	1 day
 ✅ Day 2	Sample good/bad datasets	1 day
-✅ Day 3	Learn Pandas + inspect data	1–2 days
-✅ Day 4	Data Validation                 1–2 days
+✅ Day 3	Learn Pandas + inspect data	1 day
+✅ Day 4	Data Validation                 1 day
 ✅ Day 5	Data Cleaning + Transformation                 1–2 days
+✅ Day 6	Data Ingestion + Data Validation + Data Transformation    1-2 days
 
 • Completely empty row → remove. 
 • Exact duplicate row → remove duplicate copies. 
