@@ -10,27 +10,56 @@ from validation.inventory_validation import validate_inventory
 from transformation.clean_columns import clean_column_names
 from validation.referential_integrity import validate_reference
 from transformation.clean_data import clean_data_rows
+from transformation.transform_data import transform_products_data
+from transformation.transform_data import transform_sales_data
+from transformation.transform_data import transform_inventory_data
 
-products_data = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Products.csv")
-sales_data = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Sales.csv")
-inventory_data = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Inventory.csv")
-products_data = clean_column_names(products_data)
-sales_data = clean_column_names(sales_data)
-inventory_data = clean_column_names(inventory_data)
+# 1. Load raw data
+products = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Products.csv")
+sales = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Sales.csv")
+inventory = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Inventory.csv")
 
 
-product_result  = validate_products(products_data)
-sales_result = validate_sales(sales_data)
-inventory_result = validate_inventory(inventory_data)
-sales_result = sales_result = sales_result.union(validate_reference(products_data, sales_data))
-inventory_result = inventory_result = inventory_result.union(validate_reference(products_data, inventory_data))
-cleaned_products_data = clean_data_rows(product_result, products_data)
-cleaned_sales_data = clean_data_rows(sales_result, sales_data)
-cleaned_inventory_data = clean_data_rows(inventory_result, inventory_data)
+# 2. Standardize column names
+products = clean_column_names(products)
+sales = clean_column_names(sales)
+inventory = clean_column_names(inventory)
 
-print("Products: ", product_result)
-print("Sales: ", sales_result)
-print("Inventory: ", inventory_result)
-print("Cleaned Products Data: ", cleaned_products_data)
-print("Cleaned Sales Data: ", cleaned_sales_data)
-print("Cleaned Inventory Data: ", cleaned_inventory_data)
+
+# 3. Validate data
+invalid_product_rows = validate_products(products)
+invalid_sales_rows = validate_sales(sales)
+invalid_inventory_rows = validate_inventory(inventory)
+
+
+# 4. Validate references
+invalid_sales_rows = invalid_sales_rows.union(
+    validate_reference(products, sales)
+)
+
+invalid_inventory_rows = invalid_inventory_rows.union(
+    validate_reference(products, inventory)
+)
+
+
+# 5. Remove invalid rows
+clean_products = clean_data_rows(invalid_product_rows, products)
+clean_sales = clean_data_rows(invalid_sales_rows, sales)
+clean_inventory = clean_data_rows(invalid_inventory_rows, inventory)
+
+
+# 6. Transform data types
+transformed_products = transform_products_data(clean_products)
+transformed_sales = transform_sales_data(clean_sales)
+transformed_inventory = transform_inventory_data(clean_inventory)
+
+
+# 7. Final output
+print("Final Products Data:")
+print(transformed_products)
+
+print("\nFinal Sales Data:")
+print(transformed_sales)
+
+print("\nFinal Inventory Data:")
+print(transformed_inventory)
