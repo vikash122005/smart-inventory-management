@@ -13,6 +13,8 @@ from transformation.clean_data import clean_data_rows
 from transformation.transform_data import transform_products_data
 from transformation.transform_data import transform_sales_data
 from transformation.transform_data import transform_inventory_data
+from database.connection import get_connection
+from database.insert_data import insert_products
 
 # 1. Load raw data
 products = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Products.csv")
@@ -53,13 +55,10 @@ transformed_products = transform_products_data(clean_products)
 transformed_sales = transform_sales_data(clean_sales)
 transformed_inventory = transform_inventory_data(clean_inventory)
 
+# 7) Establish database connection
+connection = get_connection()
 
-# 7. Final output
-print("Final Products Data:")
-print(transformed_products)
+# 8) Insert transformed data into the database
+insert_products(connection, transformed_products)
 
-print("\nFinal Sales Data:")
-print(transformed_sales)
 
-print("\nFinal Inventory Data:")
-print(transformed_inventory)
