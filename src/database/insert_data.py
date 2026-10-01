@@ -59,3 +59,70 @@ def insert_inventory(connection,inventory):
         )
     connection.commit()
     cursor.close()
+
+def record_sale(connection, sale_id, product_id, sale_date, quantity_sold):
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        SELECT 1
+        FROM sales
+        WHERE sale_id = %s
+        """,
+        (sale_id,)
+    )
+    
+    if cursor.fetchone() is not None:
+        cursor.close()
+        raise ValueError("Sale ID already exists. Please enter a different Sale ID.")
+
+    # Check current stock
+    cursor.execute(
+        """
+        SELECT current_stock
+        FROM inventory
+        WHERE product_id = %s
+        """,
+        (product_id,)
+    )
+
+    result = cursor.fetchone()
+
+    if result is None:
+        cursor.close()
+        raise ValueError("Product does not exist in inventory")
+
+    current_stock = result[0]
+
+    if quantity_sold <= 0:
+        cursor.close()
+        raise ValueError("Quantity sold must be greater than 0")
+
+    if quantity_sold > current_stock:
+        cursor.close()
+        raise ValueError("Not enough stock available")
+
+
+    # Insert sale
+    cursor.execute(
+        """
+        INSERT INTO sales
+        (sale_id, product_id, sale_date, quantity_sold)
+        VALUES (%s, %s, %s, %s)
+        """,
+        (sale_id, product_id, sale_date, quantity_sold)
+    )
+
+    # Reduce inventory
+    cursor.execute(
+        """
+        UPDATE inventory
+        SET current_stock = current_stock - %s
+        WHERE product_id = %s
+        """,
+        (quantity_sold, product_id)
+    )
+
+    connection.commit()
+    cursor.close()
