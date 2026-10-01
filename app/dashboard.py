@@ -149,3 +149,74 @@ st.bar_chart(
     category_sales.set_index("product_category")
 )
 
+###Stock alert section
+
+alert_query = """
+SELECT
+    p.product_id,
+    p.product_name,
+    p.product_category,
+    i.current_stock,
+    p.reorder_level,
+    p.lead_time_days,
+    CASE
+        WHEN i.current_stock <= p.reorder_level
+         AND p.lead_time_days >= 5
+            THEN 'URGENT REORDER'
+        WHEN i.current_stock <= p.reorder_level
+            THEN 'LOW STOCK'
+        ELSE 'REORDER SOON'
+    END AS stock_status
+FROM products p
+JOIN inventory i
+    ON p.product_id = i.product_id
+WHERE i.current_stock <= p.reorder_level * 1.5
+ORDER BY i.current_stock ASC;
+"""
+
+alert_data = run_query(alert_query)
+
+def format_status(status):
+    if status == "URGENT REORDER":
+        return "🚨 URGENT REORDER"
+    elif status == "LOW STOCK":
+        return "🔴 LOW STOCK"
+    elif status == "REORDER SOON":
+        return "🟡 REORDER SOON"
+    return "🟢 OK"
+
+alert_data["stock_status"] = alert_data["stock_status"].apply(
+    format_status
+)
+
+st.subheader("Inventory Alerts")
+
+if alert_data.empty:
+    st.success("All products have sufficient stock.")
+else:
+    st.warning(
+        f"{len(alert_data)} product(s) require inventory attention."
+    )
+
+st.dataframe(
+    alert_data,
+    use_container_width=True
+)
+
+urgent_count = sum(
+    alert_data["stock_status"] == "🚨 URGENT REORDER"
+)
+
+low_count = sum(
+    alert_data["stock_status"] == "🔴 LOW STOCK"
+)
+
+soon_count = sum(
+    alert_data["stock_status"] == "🟡 REORDER SOON"
+)
+
+col1, col2, col3 = st.columns(3)
+
+col1.metric("Urgent Reorders", urgent_count)
+col2.metric("Low Stock", low_count)
+col3.metric("Reorder Soon", soon_count)

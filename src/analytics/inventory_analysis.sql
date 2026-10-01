@@ -169,3 +169,44 @@ JOIN inventory i
     ON p.product_id = i.product_id;
 
 
+---15. Low stock alert
+
+SELECT
+    p.product_id,
+    p.product_name,
+    p.product_category,
+    i.current_stock,
+    p.reorder_level,
+    p.lead_time_days,
+    CASE
+        WHEN i.current_stock <= p.reorder_level
+            THEN 'LOW STOCK'
+        WHEN i.current_stock <= p.reorder_level * 1.5
+            THEN 'REORDER SOON'
+        ELSE 'OK'
+    END AS stock_status
+FROM products p
+JOIN inventory i
+    ON p.product_id = i.product_id
+ORDER BY i.current_stock ASC;
+
+---16. Products requiring attention
+
+-- Products requiring attention
+SELECT
+    p.product_id,
+    p.product_name,
+    p.product_category,
+    i.current_stock,
+    p.reorder_level,
+    p.lead_time_days,
+    CASE
+        WHEN i.current_stock <= p.reorder_level
+            THEN 'LOW STOCK'
+        ELSE 'REORDER SOON'
+    END AS stock_status
+FROM products p
+JOIN inventory i
+    ON p.product_id = i.product_id
+WHERE i.current_stock <= p.reorder_level * 1.5
+ORDER BY i.current_stock ASC;

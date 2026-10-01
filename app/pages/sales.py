@@ -49,3 +49,5 @@ if st.button("Record Sale"):
     finally:
 
         connection.close()
+if st.button("Refresh Inventory Alerts"):
+    st.rerun()
