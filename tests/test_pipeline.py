@@ -61,7 +61,7 @@ transformed_inventory = transform_inventory_data(clean_inventory)
 connection = get_connection()
 
 # 8) Insert transformed data into the database
-###insert_products(connection, transformed_products)
-###insert_sales(connection, transformed_sales)
+insert_products(connection, transformed_products)
+insert_sales(connection, transformed_sales)
 insert_inventory(connection, transformed_inventory)
 
