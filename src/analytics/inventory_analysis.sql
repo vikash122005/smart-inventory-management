@@ -210,3 +210,27 @@ JOIN inventory i
     ON p.product_id = i.product_id
 WHERE i.current_stock <= p.reorder_level * 1.5
 ORDER BY i.current_stock ASC;
+
+---17. Demand simulation base data
+
+SELECT
+    p.product_id,
+    p.product_name,
+    p.product_category,
+    i.current_stock,
+    p.reorder_level,
+    p.lead_time_days,
+    COALESCE(SUM(s.quantity_sold), 0) AS historical_demand
+FROM products p
+JOIN inventory i
+    ON p.product_id = i.product_id
+LEFT JOIN sales s
+    ON p.product_id = s.product_id
+GROUP BY
+    p.product_id,
+    p.product_name,
+    p.product_category,
+    i.current_stock,
+    p.reorder_level,
+    p.lead_time_days
+ORDER BY historical_demand DESC;
