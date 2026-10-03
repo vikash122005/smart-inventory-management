@@ -206,17 +206,10 @@ st.dataframe(
     use_container_width=True
 )
 
-
 st.subheader("Projected Stock")
 
-
 chart_data = data[
-    [
-        "product_name",
-        "current_stock",
-        "projected_stock"
-    ]
+    ["product_name", "projected_stock"]
 ].set_index("product_name")
-
 
 st.bar_chart(chart_data)
