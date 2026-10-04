@@ -19,9 +19,9 @@ from database.insert_data import insert_sales
 from database.insert_data import insert_inventory
 
 # 1. Load raw data
-products = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Products.csv")
-sales = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Sales.csv")
-inventory = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/raw/Sample bad/Inventory.csv")
+products = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/test/products_test.csv")
+sales = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/test/sales_test.csv")
+inventory = load_csv("C:/Users/admin/OneDrive/Desktop/smart-inventory/data/test/inventory_test.csv")
 
 
 # 2. Standardize column names
@@ -57,6 +57,7 @@ transformed_products = transform_products_data(clean_products)
 transformed_sales = transform_sales_data(clean_sales)
 transformed_inventory = transform_inventory_data(clean_inventory)
 
+
 # 7) Establish database connection
 connection = get_connection()
 
@@ -64,4 +65,5 @@ connection = get_connection()
 insert_products(connection, transformed_products)
 insert_sales(connection, transformed_sales)
 insert_inventory(connection, transformed_inventory)
+
 

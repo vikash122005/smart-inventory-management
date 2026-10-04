@@ -1,0 +1,31 @@
+product_id,product_name,product_category,unit_price,reorder_level,lead_time_days
+P001,Notebook,Stationery,69.52,13,4
+P002,Pen,Electronics,296.29,8,9
+P003,Pencil,Stationery,1189.18,6,1
+P004,Eraser,Stationery,452.9,21,10
+P005,School Bag,Stationery,1131.27,27,9
+P006,Water Bottle,Clothing,456.47,23,5
+P007,Mouse,Stationery,1522.44,10,7
+P008,Keyboard,Household,570.19,11,6
+P009,USB Cable,Stationery,203.64,8,6
+P010,Headphones,Household,1215.38,30,1
+P011,Charger,Clothing,1081.73,17,2
+P012,Power Bank,Personal Care,600.49,25,10
+P013,Extension Box,Household,1163.16,27,2
+P014,LED Bulb,Stationery,1329.3,29,5
+P015,Torch,Stationery,1713.53,8,7
+P016,Calculator,Household,917.75,16,3
+P017,Stapler,Household,723.44,26,5
+P018,Scissors,Stationery,1226.08,10,9
+P019,Glue,Electronics,343.54,17,5
+P020,Tape,Personal Care,454.84,15,1
+P021,T-Shirt,Electronics,1647.17,30,6
+P022,Jeans,Clothing,550.13,11,10
+P023,Socks,Household,441.0,20,7
+P024,Cap,Clothing,302.89,9,4
+P025,Slippers,Personal Care,1087.18,28,10
+P026,Broom,Clothing,1797.69,17,6
+P027,Mop,Electronics,1994.71,9,9
+P028,Detergent,Clothing,200.0,6,2
+P029,Soap,Electronics,1262.34,30,7
+P030,Shampoo,Personal Care,145.78,17,10
